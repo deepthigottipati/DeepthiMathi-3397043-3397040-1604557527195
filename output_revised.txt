@@ -1,15 +1,15 @@
 
 testDeleteStock=false
-testDeleteCompany=false
-testDeleteStockBDD=false
-testFindAllCompanies=false
-testFindStockByCompanyCodeBDD=false
-testFindCompanyInfoById=false
+testDeleteCompany=true
+testDeleteStockBDD=true
+testFindAllCompanies=true
+testFindStockByCompanyCodeBDD=true
+testFindCompanyInfoById=true
 testAddStock=false
-testFindAllCompaniesBDD=false
+testFindAllCompaniesBDD=true
 testAddStockBDD=false
-testFindCompanyInfoByIdBDD=false
-testDeleteCompanyBDD=false
+testFindCompanyInfoByIdBDD=true
+testDeleteCompanyBDD=true
 testAddCompanyBDD=false
 testFindStockByCompanyCode=false
 testStockPriceIndex=false

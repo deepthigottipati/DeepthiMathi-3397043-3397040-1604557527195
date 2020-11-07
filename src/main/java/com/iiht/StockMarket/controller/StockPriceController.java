@@ -34,25 +34,29 @@ public class StockPriceController {
 	//-------------------------------------------------------------------------------------------------------------------------------
 	// SERVICE OPERATIONS
 	//-------------------------------------------------------------------------------------------------------------------------------
-	
+	@GetMapping(value="/home")
+    public String home(){
+        return "Stock home page";
+    }
+    
 	@PostMapping(value="/addStock")																						// 2. WORKING
 	public ResponseEntity<StockPriceDetailsDTO> addStockDetails(@Valid @RequestBody StockPriceDetailsDTO stockPriceDetailsDTO, BindingResult bindingResult) throws InvalidStockException {
-		return null;
+		return new ResponseEntity<StockPriceDetailsDTO>(stockMarketService.saveStockPriceDetails(stockPriceDetailsDTO), HttpStatus.OK);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@DeleteMapping(value = "/deleteStock/{companyCode}")																// 3. WORKING
-	public ResponseEntity<List<StockPriceDetailsDTO>> deleteStockByCompanyCode(@PathVariable Long companyCode) {
-		return null;
+	public ResponseEntity<List<StockPriceDetailsDTO>> deleteStockByCompanyCode(@PathVariable Long companyCode) throws StockNotFoundException {
+		return new ResponseEntity<List<StockPriceDetailsDTO>>(stockMarketService.deleteStock(companyCode), HttpStatus.OK);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@GetMapping(value = "/getStockByCompanyCode/{companyCode}")															// 4. WORKING
-	public ResponseEntity<List<StockPriceDetailsDTO>> getStockByCompanyCode(@PathVariable Long companyCode) {
-		return null;
+	public ResponseEntity<List<StockPriceDetailsDTO>> getStockByCompanyCode(@PathVariable Long companyCode) throws StockNotFoundException {
+		return new ResponseEntity<List<StockPriceDetailsDTO>>(stockMarketService.getStockByCode(companyCode), HttpStatus.OK);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@GetMapping(value = "/getStockPriceIndex/{companyCode}/{startDate}/{endDate}")										// 5. WORKING
-	public ResponseEntity<StockPriceIndexDTO> displayStockPriceIndex(@PathVariable Long companyCode, @PathVariable Date startDate, @PathVariable Date endDate) {
-		return null;
+	public ResponseEntity<StockPriceIndexDTO> displayStockPriceIndex(@PathVariable Long companyCode, @PathVariable Date startDate, @PathVariable Date endDate) throws StockNotFoundException {
+		return new ResponseEntity<StockPriceIndexDTO>(stockMarketService.getStockPriceIndex(companyCode, startDate.toLocalDate(), endDate.toLocalDate()), HttpStatus.OK);
 	}
 	
 	//===============================================================================================================================

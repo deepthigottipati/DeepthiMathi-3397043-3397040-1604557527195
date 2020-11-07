@@ -1,29 +1,32 @@
 package com.iiht.StockMarket.dto;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CompanyDetailsDTO {
+    @NotNull
+   private Long companyCode;
 
-	private Long companyCode;
-
-	
+	@NotNull
 	private String stockExchange;
 
-	
+    @NotNull
+    @Size(min=3, max = 100, message = "company name cannot be less than 3 or greater than 100 chars")
 	private String companyName;
 
-	
+    @NotNull
+     @Size(min=5, max = 100, message = "company ceo cannot be less than 3 or greater than 100 chars")
 	private String companyCEO;
 
-	
+	@NotNull
 	private Double turnover;
 
-	
+    @NotNull
+     @Size(min=5, max = 200, message = "company board of directors cannot be less than 5 or greater than 200 chars")
 	private String boardOfDirectors;
 
-	
+    @NotNull
+     @Size(min=5, max = 255, message = "company profile cannot be less than 5 or greater than 255 chars")
 	private String companyProfile;
 	
 	//---------------------------------------------------------------------------------------------------------------------------------

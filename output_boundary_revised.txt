@@ -1,13 +1,13 @@
 
 testAvgStockPriceLength=false
 testBoardOfDirectorsLength=false
-testPostStockPriceDetailsFailed=true
+testPostStockPriceDetailsFailed=false
 testTurnoverLength=false
 testPostCompanyDetailsSuccess=true
 testCompanyCodeLength=false
 testCompanyNameLength=false
-testCurrentStockPriceLength=true
-testPostStockPriceDetailsSuccess=false
+testCurrentStockPriceLength=false
+testPostStockPriceDetailsSuccess=true
 testCompanyProfileLength=false
 testStockPriceListLength=false
 testStockPriceDateLength=true

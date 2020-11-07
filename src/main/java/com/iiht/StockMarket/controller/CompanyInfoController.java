@@ -36,22 +36,27 @@ public class CompanyInfoController {
 	
 	@PostMapping(value="/addCompany")																					// 3. WORKING
 	public ResponseEntity<CompanyDetailsDTO> addCompanyDetails(@Valid @RequestBody CompanyDetailsDTO companyDetailsDTO, BindingResult bindingResult) throws InvalidCompanyException {
-		return null;
-	}
+        return new ResponseEntity<CompanyDetailsDTO>(companyInfoService.saveCompanyDetails(companyDetailsDTO), HttpStatus.OK);
+    }
+    
+    @GetMapping(value="/home")
+    public String home(){
+        return "Company home page";
+    }
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@DeleteMapping(value = "/deleteCompany/{companyCode}")																// 4. WORKING
-	public ResponseEntity<CompanyDetailsDTO> deleteCompanyDetails(@PathVariable("companyCode") Long companyCode) {
-		return null;
+	public ResponseEntity<CompanyDetailsDTO> deleteCompanyDetails(@PathVariable("companyCode") Long companyCode) throws CompanyNotFoundException {
+		return new ResponseEntity<CompanyDetailsDTO>(companyInfoService.deleteCompany(companyCode), HttpStatus.OK);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@GetMapping(value = "/getCompanyInfoById/{companyCode}")															// 5. WORKING
-	public ResponseEntity<CompanyDetailsDTO> getCompanyDetailsById(@PathVariable("companyCode") Long companyCode) {
-		return null;
+	public ResponseEntity<CompanyDetailsDTO> getCompanyDetailsById(@PathVariable("companyCode") Long companyCode) throws CompanyNotFoundException {
+		return new ResponseEntity<CompanyDetailsDTO>(companyInfoService.getCompanyInfoById(companyCode), HttpStatus.OK);
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------
 	@GetMapping(value = "/getAllCompanies", produces = "application/json")												// 6. WORKING
-	public ResponseEntity<List<CompanyDetailsDTO>> getAllCompanies() {		
-		return null;
+	public ResponseEntity<List<CompanyDetailsDTO>> getAllCompanies() throws CompanyNotFoundException{		
+		return new ResponseEntity<List<CompanyDetailsDTO>>(companyInfoService.getAllCompanies(), HttpStatus.OK);
 	}
 	
 	//================================================================================================

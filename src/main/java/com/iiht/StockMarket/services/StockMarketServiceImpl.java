@@ -1,5 +1,6 @@
 package com.iiht.StockMarket.services;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.iiht.StockMarket.dto.StockPriceIndexDTO;
 import com.iiht.StockMarket.model.StockPriceDetails;
 import com.iiht.StockMarket.repository.CompanyInfoRepository;
 import com.iiht.StockMarket.repository.StockPriceRepository;
+import com.iiht.StockMarket.utils.StockMarketUtility;
 
 @Service
 @Transactional
@@ -26,34 +28,42 @@ public class StockMarketServiceImpl implements StockMarketService {
 	
 	//----------------------------------------------------------------------------
 	public StockPriceDetailsDTO saveStockPriceDetails(StockPriceDetailsDTO stockPriceDetailsDTO) {
-		return null;
-	}
+        stockRepository.save(StockMarketUtility.convertToStockPriceDetails(stockPriceDetailsDTO));
+		return stockPriceDetailsDTO;
+	};
 	//----------------------------------------------------------------------------
 	public List<StockPriceDetailsDTO> deleteStock(Long companyCode) {
-		
-		return null;
-	}
+        stockRepository.deleteById(companyCode);
+        return StockMarketUtility.convertToStockPriceDetailsDtoList(stockRepository.findStockByCompanyCode(companyCode));
+	};
 	//----------------------------------------------------------------------------
 	public List<StockPriceDetailsDTO> getStockByCode(Long companyCode){
-		return null;
+		return StockMarketUtility.convertToStockPriceDetailsDtoList(stockRepository.findStockByCompanyCode(companyCode));
 	};
 	//----------------------------------------------------------------------------
 	public StockPriceDetailsDTO getStockPriceDetailsDTO(StockPriceDetails stockDetails)	{
-		return null;
-	}	
-	//----------------------------------------------------------------------------
+        return StockMarketUtility.convertToStockPriceDetailsDTO(stockDetails);
+	};
+	//---------------------------------------------------------------------
 	public Double getMaxStockPrice(Long companyCode, LocalDate startDate, LocalDate endDate) {
-		return null;
+		return stockRepository.findMaxStockPrice(companyCode, startDate, endDate);
 	}
 	public Double getAvgStockPrice(Long companyCode, LocalDate startDate, LocalDate endDate) {
-		return null;
+		return stockRepository.findAvgStockPrice(companyCode, startDate, endDate);
 	}
 	public Double getMinStockPrice(Long companyCode, LocalDate startDate, LocalDate endDate) {
-		return null;
+		return stockRepository.findMinStockPrice(companyCode, startDate, endDate);
 	}
 	
 	public StockPriceIndexDTO getStockPriceIndex(Long companyCode, LocalDate startDate, LocalDate endDate) {
 		
-		return null;
-	}
-}
+        StockPriceIndexDTO dto = new StockPriceIndexDTO();
+        dto.setAvgStockPrice(stockRepository.findAvgStockPrice(companyCode, startDate, endDate));
+        dto.setCompanyDto(StockMarketUtility.convertToCompanyDetailsDTO(companyRepository.findCompanyDetailsById(companyCode)));
+        dto.setMaxStockPrice(stockRepository.findMaxStockPrice(companyCode, startDate, endDate));
+        dto.setMinStockPrice(stockRepository.findMinStockPrice(companyCode, startDate, endDate));
+        dto.setStockPriceList(StockMarketUtility.convertToStockPriceDetailsDtoList(stockRepository.findStockByCompanyCode(companyCode)));
+        return dto;
+
+    
+}}
